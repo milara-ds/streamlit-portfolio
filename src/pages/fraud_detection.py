@@ -11,7 +11,7 @@ def write():
         st.session_state['navigation_changed'] = False
 
 
-st.title("Fraud Detection")
-st.write("---")
+	st.title("Fraud Detection")
+	st.write("---")
 
-st.write("Working on the page...")
+	st.write("Working on the page...")
