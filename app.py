@@ -45,4 +45,5 @@ if __name__ == "__main__":
         st.session_state['navigation_changed'] = False
         st.session_state['navigation_current'] = None
 
-    main()
+    #main()
+    st.write("Hola Mundo")
