@@ -1,9 +1,4 @@
 import streamlit as st
-import pandas as pd
-import plotly.graph_objects as go
-import plotly.express as px
-import numpy as np
-
 
 def write():
 	if st.session_state['navigation_current'] != "Fraud Detection":
