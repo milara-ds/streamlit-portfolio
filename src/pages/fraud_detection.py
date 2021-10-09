@@ -19,9 +19,9 @@ def write():
     
     st.markdown("Fraud Detection is a powerful application of Machine Learning models. Where the first objective is to create a tool that identifies\
 	             when a transaction is fraudulent or not, and the second objective is to make that tool have a better performance than the current\
-				 tool (*assume it is not with Machine Learning*) ")
+				 tool (*assume it is not with Machine Learning*). ")
 
-    st.markdown("The following charts aim to show a quick and interactive overview of the job of a **Data Scientist** does to solve this type of problem. \
+    st.markdown("The following charts aim to show a quick and **[interactive]** overview of the job of a **Data Scientist** does to solve this type of problem. \
 		        The data used in this project contains anonymized credit card transactions labeled as fradulent or genuine. The transactions were made \
 		        in September 2013 by European cardholders. The data was retrieved from two day transactions, where only **492** were fraud out of **284,807**.")
 
@@ -102,10 +102,10 @@ def write():
 	
     fixed_avcost_fraud = 122.2
 
-    st.write(f'The **average cost of fraud** calculated from the data is € {fixed_avcost_fraud}')
+    st.write(f'The **average cost of fraud** calculated from the data is € {fixed_avcost_fraud}.')
     avg_fraud_cost = st.slider('Average cost of fraud € ', 100, 300, 122)
 
-    st.write(f'The **average cost of analysis** is calculated based on the salary of an employee and the amount of time it takes to analyse a transaction')
+    st.write(f'The **average cost of analysis** is calculated based on the salary of an employee and the amount of time it takes to analyse a transaction.')
     avg_monitoring_cost = st.slider('Average cost of analysis € ', 1, 5, 2)
 
     count_of_false_positives = np.arange(0, avg_fraud_cost / avg_monitoring_cost * 2)
@@ -330,5 +330,5 @@ def write():
     st.markdown("This quick interactive overview of the job of a Data Scientist presented some of the most important tasks when solving a \
 		         problem of Fraud Detection. Nevertheless, these tasks are similar to any problem with data. Indeed, there are more \
 		         tasks such as cleaning the data and checking that the models are able to make good predictions instead of learning a set of\
-		         possible results. For the complete analysis please Jupyter notebook in \
+		         possible results. For the complete analysis please visit the Jupyter notebook in \
 		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb).")
