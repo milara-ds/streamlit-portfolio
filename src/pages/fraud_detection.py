@@ -1,5 +1,6 @@
 import streamlit as st
 import plotly.graph_objects as go
+import pandas as pd
 
 def write():
     if st.session_state['navigation_current'] == None:
@@ -39,5 +40,44 @@ def write():
     fig.update_layout( yaxis_title="Number of transactions",
 						title_text= "Genuine vs Fraud Transactions",
 						title_x=0.5)
+
+    st.plotly_chart(fig, use_container_width=True)
+
+	#2. Plot Differences between Profiles ************************************************
+    st.markdown("## **Genuine and Fraud average behavior**")
+
+    st.markdown("One of the firsts tasks of the Data Scientist is to get to know the data which is also known as *Exploratory Data Analysis*. One example \
+				of the outcome of this analysis is shown in the spyder plot below. The plot presents all the variables in the dataset as if they were\
+				angles of the circle. The blue and red areas are the mean values of each variable for the two types of transactions. In other words, \
+				the average behavior of the variables for genuine and fraud transactions. The variables V1 to V19 seem to have huge difference. ")
+
+    st.markdown("**[Interactive]** Click on the labels that are on the top-right side of the plot, the areas will disappear. If the fraud's area is \
+		        removed it can be seen that the genuine area has a different shape than a circle, the reason is that the range of its values are closer\
+		        to zero than the values of the fraud's area.")
+
+	#Calculate the mean values of the variables for each class
+    @st.cache
+    def read_class():
+	    return pd.read_csv("https://raw.githubusercontent.com/milara-ds/streamlit-portfolio-app/main/data/class_mean_variables.csv")
+
+    df_profile = read_class()
+    categories = df_profile.columns
+
+	#Plot 
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatterpolar(
+	      r= df_profile.iloc[0].to_list(),
+	      theta=categories,
+	      fill='toself',
+	      name='Genuine\'s area'
+	))
+
+    fig.add_trace(go.Scatterpolar(
+	      r=df_profile.iloc[1].to_list(),
+	      theta=categories,
+	      fill='toself',
+	      name='Fraud\'s area'
+	))
 
     st.plotly_chart(fig, use_container_width=True)
