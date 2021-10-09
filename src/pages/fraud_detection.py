@@ -62,7 +62,7 @@ def write():
 	#Calculate the mean values of the variables for each class
 	@st.cache
 	def read_class():
-		return pd.read_csv("https://github.com/milara-ds/streamlit-portfolio-app/blob/main/data/class_mean_variables.csv")
+		return pd.read_csv("https://raw.githubusercontent.com/milara-ds/streamlit-portfolio-app/main/data/class_mean_variables.csv")
 
 	df_profile = read_class()
 	categories = df_profile.columns
@@ -217,7 +217,7 @@ def write():
 
 	@st.cache
 	def read_model_results():
-		return pd.read_csv("https://github.com/milara-ds/streamlit-portfolio-app/blob/main/data/model_results_fd.csv") 
+		return pd.read_csv("https://raw.githubusercontent.com/milara-ds/streamlit-portfolio-app/main/data/model_results_fd.csv") 
 
 	#Read results of the models 
 	df_results = read_model_results() 
@@ -298,7 +298,7 @@ def write():
 
 	@st.cache
 	def read_feature_importance():
-		return pd.read_csv("https://github.com/milara-ds/streamlit-portfolio-app/blob/main/data/xgb_feat_importance_fd.csv") 
+		return pd.read_csv("https://raw.githubusercontent.com/milara-ds/streamlit-portfolio-app/main/data/xgb_feat_importance_fd.csv") 
 
 	#Read the data of best model
 	df_feat = read_feature_importance()
