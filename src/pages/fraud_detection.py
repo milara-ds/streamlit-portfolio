@@ -139,4 +139,148 @@ def write():
 
     st.plotly_chart(fig, use_container_width=True)
 
-	st.write(f'After {intersect} false alarms, it wasn\'t worth catching the extra fraud.')
+    st.write(f'After {intersect} false alarms, it wasn\'t worth catching the extra fraud.')
+	
+	#4. Plot "Modeling"*********************************************************************************
+    st.markdown("## **Machine Learning Models**")
+
+    st.markdown("This is one where the fun is. The Data Scientist has to find the model that provide the best results. For that \
+	            many experiments are run to test different hypothesis until the best model is found. The plot below shows the results \
+	            of 4 experiments and 1 baseline (Dummy classifier). The horizontal axis presents the proportion of instances of a test \
+	            set (transactions that the model has never seen), and the vertical axis presents the cost each model generates \
+	            after processing the test set.")
+
+    st.markdown("**[Interactive]** Click on the top-left labels to enable and disable each experiment. Try disabling the Dummy classifier.")
+
+    st.markdown("Let's imagine you have a budget of € 4,000 to pay for the analysis of transactions and to reimburse fraudulent transactions. Which \
+		        model would you like to use for this task? ")
+
+    st.markdown("**NOTE: it takes a few seconds to refresh the Cost curve after the sliders are updated**")
+
+    def error_cost(y_pred,y_test,costs):
+	    """
+	    Returns the costs of the error
+	    
+	    Parameters:
+	    -----------
+	    y_pred: classes estimated by the classifier
+	    y_test: actual classes
+	    costs: costs of the errors
+	    """
+	    if y_pred == 1 and y_test == 1:
+	        return costs['avg_analysis_cost']
+	    if y_pred == 1 and y_test==0:
+	        return costs['avg_analysis_cost']
+	    elif y_pred== 0 and y_test==1:
+	        return costs['avg_fraud_cost'] 
+	    else:
+	        return 0
+	    
+    def compute_cost_df(y_proba,y_test,best_thres,costs):
+	    """
+	    Generates a df with the cummulative cost of the errors
+	    
+	    Parameters:
+	    ------------
+	    y_proba: array with the probabilities of X_test given by an estimator
+	    y_test: array with the actual values of y
+	    best_thres: int best threshold to define a binary outcome
+	    costs: dict with the costs of the errors
+	    """
+	    #Build the df for the cost curve
+	    df_cost_curve = pd.DataFrame({'y_proba':y_proba, 
+	                                  'y_pred': np.where(y_proba > best_thres,1,0),
+	                                  'y_test':y_test})
+
+	    #Sort df by probability
+	    df_cost_curve = df_cost_curve.sort_values(by='y_proba', ascending = False).reset_index().drop('index', axis =1)
+
+	    #Compute the cost of each error
+	    df_cost_curve['cost'] = df_cost_curve.apply(lambda x: error_cost(x.y_pred, x.y_test,costs), axis=1)
+
+	    #Compute the cummulative sum of the costs
+	    df_cost_curve['cum_cost'] = df_cost_curve['cost'].cumsum(axis=0)
+	    
+	    return df_cost_curve
+
+    costs = {
+	    'avg_analysis_cost':avg_monitoring_cost ,
+	    'avg_fraud_cost':avg_fraud_cost ,
+	    'test_ratio':0.25
+			}
+
+	
+
+    @st.cache
+    def read_model_results():
+	    return pd.read_csv("https://raw.githubusercontent.com/milara-ds/streamlit-portfolio-app/main/data/model_results_fd.csv") 
+
+	#Read results of the models 
+    df_results = read_model_results() 
+    y_test = df_results['y_test']
+
+	#Dummy model 
+    dummy_proba = df_results['dummy_proba']
+    df_dummy_cost_curve = compute_cost_df(dummy_proba,y_test,0.5,costs)
+
+	#Simple Logistic Regression
+    logreg_proba = df_results['logreg_proba']
+    df_logreg_cost_curve = compute_cost_df(logreg_proba,y_test,0.5,costs)
+
+	#Simple XGBoost
+    xgboost_proba = df_results['xgboost_proba']
+    df_xgboost_cost_curve = compute_cost_df(xgboost_proba,y_test,0.5,costs)
+
+	#SMOTE RFE HYP THRS Logistic Regression
+    logreg_sm_rfe_hyp_proba = df_results['logreg_sm_rfe_hyp_proba']
+    df_logreg_thrs_cost_curve = compute_cost_df(logreg_sm_rfe_hyp_proba,y_test,0.375,costs)
+
+	#SMOTE RFE HYP THRS XGBoost
+    xgboost_sm_rfe_hyp_proba = df_results['xgboost_sm_rfe_hyp_proba']
+    df_xgboost_thrs_cost_curve = compute_cost_df(xgboost_sm_rfe_hyp_proba,y_test,0.525,costs)
+
+	#values for x axis
+    instances=np.arange(0, 1, (1/len(y_test)))
+
+    fig = go.Figure(layout=go.Layout(height=600, width=800))
+
+    fig.add_trace(go.Scatter(x=instances, 
+		y=df_dummy_cost_curve['cum_cost'],
+		name = 'Dummy classifier'))
+
+    fig.add_trace(go.Scatter(x=instances, 
+		y=df_logreg_cost_curve['cum_cost'],
+		name = 'Logistic Regression (simple)'))
+
+    fig.add_trace(go.Scatter(x=instances, 
+		y=df_logreg_thrs_cost_curve['cum_cost'],
+		name = 'Logistic Regression (tunned)'))
+
+    fig.add_trace(go.Scatter(x=instances, 
+		y=df_xgboost_cost_curve['cum_cost'],
+		name ='XGBoost (simple)' ))
+
+    fig.add_trace(go.Scatter(x=instances, 
+		y=df_xgboost_thrs_cost_curve['cum_cost'],
+		name = 'XGBoost (tunned)'))
+
+
+    fig.update_layout(
+	    yaxis_title="Cost €",
+	    xaxis_title="Instances proportion",
+	    title_text= "Cost curve",
+	    title_x=0.5,
+	    showlegend=True,
+	    legend=dict(
+		    yanchor="top",
+		    y=0.99,
+		    xanchor="left",
+		    x=0.01)
+	    )
+
+    fig.add_hline(y=y_test.sum()*avg_monitoring_cost,
+				  line_dash="dot",
+	              annotation_text="Perfect classificator", 
+	              annotation_position="top right")
+
+    st.plotly_chart(fig, use_container_width=True)
