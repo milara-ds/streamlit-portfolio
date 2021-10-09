@@ -1,3 +1,4 @@
+"""
 import streamlit as st
 
 import src.pages.home
@@ -47,3 +48,7 @@ if __name__ == "__main__":
 
     #main()
     st.write("Hola Mundo")
+"""
+import streamlit as st
+
+st.write("Hola Mundo")
