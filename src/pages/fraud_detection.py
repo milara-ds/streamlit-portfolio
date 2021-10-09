@@ -284,3 +284,51 @@ def write():
 	              annotation_position="top right")
 
     st.plotly_chart(fig, use_container_width=True)
+
+	#5. Plot "Feature Importances"**********************************************************
+    st.markdown("## **Feature Importance**")
+
+    st.markdown("Finally, it is important to understand how the models do what they do. One method for this is to get the \
+				importance of each feature the model assigns. The plot below shows the ranking of the features of the XGBoost (tunned) model.")
+
+    @st.cache
+    def read_feature_importance():
+	    return pd.read_csv("https://raw.githubusercontent.com/milara-ds/streamlit-portfolio-app/main/data/xgb_feat_importance_fd.csv") 
+
+	#Read the data of best model
+    df_feat = read_feature_importance()
+
+    y = df_feat.columns
+    x = df_feat.iloc[0]
+
+    colors = ['aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 
+			  'beige', 'bisque', 'black', 'blanchedalmond', 'blue', 'blueviolet', 
+			  'brown', 'burlywood', 'cadetblue', 'deeppink']
+
+	# Use textposition='auto' for direct text
+    fig = go.Figure(data=[go.Bar(
+	            x=x, 
+	            y=y,
+	            text=x,
+	            textposition='auto',
+	            marker_color = colors,
+	            orientation='h',
+	        )])
+
+    fig.update_layout(
+	    yaxis_title="Features",
+	    xaxis_title="Score",
+	    title_text= "Ranking of features",
+	    title_x=0.5,
+	    )
+
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+    st.markdown("## **Conclusion**")
+    st.markdown("This quick interactive overview of the job of a Data Scientist presented some of the most important tasks when solving a \
+		         problem of Fraud Detection. Nevertheless, these tasks are similar to any problem with data. Indeed, there are more \
+		         tasks such as cleaning the data and checking that the models are able to make good predictions instead of learning a set of\
+		         possible results. For the complete analysis please Jupyter notebook in \
+		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb).")
