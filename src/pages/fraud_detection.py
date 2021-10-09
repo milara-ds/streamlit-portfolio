@@ -1,6 +1,8 @@
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
+import plotly.express as px
+import numpy as np
 
 def write():
     if st.session_state['navigation_current'] == None:
@@ -81,3 +83,60 @@ def write():
 	))
 
     st.plotly_chart(fig, use_container_width=True)
+
+	#3. Plot "Cost of Errors"***************************************************************
+    st.markdown("## **Cost of making a mistake**")
+
+    st.markdown("Another important task before start creating the models is to determine if there is a benefit or cost associated to the problem. \
+		         This type of approach helps to design the models towards a solution that either generates profits or reduces costs. \
+		         For the sake of simplicity of this problem, the **average cost of fraud** and the **average cost of analysis** \
+		         of a transaction are defined. The average cost of fraud is the mean of the amount of the frauds in the dataset and the average \
+		         cost of analysis is the cost of one person verifying the transaction.")
+
+    st.markdown("**[Interactive]** Use the sliders to change the average cost of fraud and analysis and see how the plot below changes. ")
+
+    st.markdown(" The plot below shows the number of false alarms (*when a person performed an analysis when it was not necessary*) in the horizontal \
+		         axis and the amount of € in the vertical axis. The diagonal is the function for the marginal gain per extra fraud caught. In other words,\
+		        it shows the benefits if it is worth catching a fraud after a number of false alarms. For instance, there is a loss if the model \
+		        correcly finds 1 fraud transaction but generates 62 false alarms.")
+	
+    fixed_avcost_fraud = 122.2
+
+    st.write(f'The **average cost of fraud** calculated from the data is € {fixed_avcost_fraud}')
+    avg_fraud_cost = st.slider('Average cost of fraud € ', 100, 300, 122)
+
+    st.write(f'The **average cost of analysis** is calculated based on the salary of an employee and the amount of time it takes to analyse a transaction')
+    avg_monitoring_cost = st.slider('Average cost of analysis € ', 1, 5, 2)
+
+    count_of_false_positives = np.arange(0, avg_fraud_cost / avg_monitoring_cost * 2)
+    marginal_cost_function = count_of_false_positives * -avg_monitoring_cost + avg_fraud_cost
+    intersect = int(avg_fraud_cost / avg_monitoring_cost)
+
+
+	#Plot
+    fig = px.line( x=count_of_false_positives, 
+		y=marginal_cost_function)
+
+    fig.add_trace(
+		go.Scatter(	
+			mode = 'markers',
+			x = [intersect],
+			y = [0],
+			marker=dict(
+	            color='red',
+	            size=10,
+	            ),
+			showlegend=False,
+			name = 'Intersection'
+			))
+
+    fig.update_layout(
+	    yaxis_title="Amount in €",
+	    xaxis_title="Number of false alarm",
+	    title_text= "Marginal gain per extra fraud caught",
+	    title_x=0.5
+	    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+	st.write(f'After {intersect} false alarms, it wasn\'t worth catching the extra fraud.')
