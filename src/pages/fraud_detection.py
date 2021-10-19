@@ -16,7 +16,7 @@ def write():
         
     st.title("Fraud Detection")
     st.markdown("*Predictive modeling for Fraud Detection using data of European credit card holders. The model reduced 5 times\
-		          the cost of reimbursing all the fraud transaction. *")
+		          the cost of reimbursing all the fraud transactions. *")
 
     st.write("---")
     
