@@ -15,9 +15,8 @@ def write():
         st.session_state['navigation_changed'] = False
         
     st.title("Fraud Detection")
-    st.markdown("Uplift modeling for Targeted Marketing using a large dataset of a French advertising company. \
-		      The model duplicated the gains by targeting only 50\% of users compared to the baseline. \
-			   Predictive modeling for Fraud Detection using data of European ")
+    st.markdown("*Uplift modeling for Targeted Marketing using a large dataset of a French advertising company. \
+		      The model duplicated the gains by targeting only 50% of users compared to the baseline.*")
 
     st.write("---")
     
@@ -292,7 +291,7 @@ def write():
     max_dummy = df_dummy_cost_curve['cum_cost'].iloc[-1]
     max_xgb_tunned = df_xgboost_thrs_cost_curve['cum_cost'].iloc[-1]
 
-    st.write(f'Look at that the Dummy Classifer, it reaches {max_dummy} when the XGBoost (tunned) only reaches {max_xgb_tunned}. The reduction from the Dummy \
+    st.write(f'Look at that the Dummy Classifer, it reaches € {max_dummy} when the XGBoost (tunned) only reaches € {max_xgb_tunned}. The reduction from the Dummy \
 		to the XGBoost (tunned) is {round(max_dummy/max_xgb_tunned,2)}. The Dummy classifier does not consider any transaction as fraud, and the other model \
 			is able to detect fraud transactions.')
 
@@ -344,4 +343,4 @@ def write():
 			     Nevertheless, these tasks are similar to any problem with data. Indeed, there are more \
 		         tasks such as cleaning the data and checking that the models are able to make good predictions instead of learning a set of\
 		         possible results. For the complete analysis please visit the Jupyter notebook in \
-		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb)')
+		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb).')
