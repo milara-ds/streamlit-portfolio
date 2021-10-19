@@ -15,6 +15,10 @@ def write():
         st.session_state['navigation_changed'] = False
         
     st.title("Fraud Detection")
+    st.markdown("Uplift modeling for Targeted Marketing using a large dataset of a French advertising company. \
+		      The model duplicated the gains by targeting only 50\% of users compared to the baseline. \
+			   Predictive modeling for Fraud Detection using data of European ")
+
     st.write("---")
     
     st.markdown("Fraud Detection is a powerful application of Machine Learning models. Where the first objective is to create a tool that identifies\
@@ -106,7 +110,7 @@ def write():
     avg_fraud_cost = st.slider('Average cost of fraud € ', 100, 300, 122)
 
     st.write(f'The **average cost of analysis** is calculated based on the salary of an employee and the amount of time it takes to analyse a transaction.')
-    avg_monitoring_cost = st.slider('Average cost of analysis € ', 1, 5, 2)
+    avg_monitoring_cost = st.slider('Average cost of analysis € ', 1, 5, 3)
 
     count_of_false_positives = np.arange(0, avg_fraud_cost / avg_monitoring_cost * 2)
     marginal_cost_function = count_of_false_positives * -avg_monitoring_cost + avg_fraud_cost
@@ -285,6 +289,13 @@ def write():
 
     st.plotly_chart(fig, use_container_width=True)
 
+    max_dummy = df_dummy_cost_curve['cum_cost'].iloc[-1]
+    max_xgb_tunned = df_xgboost_thrs_cost_curve['cum_cost'].iloc[-1]
+
+    st.write(f'Look at that the Dummy Classifer, it reaches {max_dummy} when the XGBoost (tunned) only reaches {max_xgb_tunned}. The reduction from the Dummy \
+		to the XGBoost (tunned) is {round(max_dummy/max_xgb_tunned,2)}. The Dummy classifier does not consider any transaction as fraud, and the other model \
+			is able to detect fraud transactions.')
+
 	#5. Plot "Feature Importances"**********************************************************
     st.markdown("## **Feature Importance**")
 
@@ -327,8 +338,10 @@ def write():
 
 
     st.markdown("## **Conclusion**")
-    st.markdown("This quick interactive overview of the job of a Data Scientist presented some of the most important tasks when solving a \
-		         problem of Fraud Detection. Nevertheless, these tasks are similar to any problem with data. Indeed, there are more \
+    st.write(f'This quick interactive overview of the job of a Data Scientist presented some of the most important tasks when solving a \
+		         problem of Fraud Detection. The results showed that the models can reduce by {round(max_dummy/max_xgb_tunned,2)} \
+				 times the cost of reimbursing all the transactions.\
+			     Nevertheless, these tasks are similar to any problem with data. Indeed, there are more \
 		         tasks such as cleaning the data and checking that the models are able to make good predictions instead of learning a set of\
 		         possible results. For the complete analysis please visit the Jupyter notebook in \
-		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb).")
+		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb)')
