@@ -12,6 +12,8 @@ def write():
         st.session_state['navigation_changed'] = False
         
     st.title("Targeted Marketing")
+    st.markdown("*Uplift modeling for Targeted Marketing using a large dataset of a French advertising company. \
+                The model duplicated the gains by targeting only 50% of users compared to the baseline*")
     st.write("---")
 
     st.write("Working on the page...")
