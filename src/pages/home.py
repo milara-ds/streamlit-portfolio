@@ -20,8 +20,8 @@ def write():
         focused on Machine Learning and Statistics. I have experience in projects such as Targeted Marketing, Fraud Detection,\
          and Predicting students’ performance.")
 
-    st.write(" My areas of expertise are on data cleansing, data preparation, modeling, \
-         hyperparameter tunning, and model evaluation with profit focus for the business case. I love working with python. \
-         Moreover, I use other handy tools such as SQL, R and Tableau." )
+    st.write(" My areas of expertise are on data cleansing, modeling, hyperparameter tunning, model evaluation, \
+        pattern recognition, statistical analysis, and profit focus for the business case. I love working with python \
+            to find insights and generate actionable information from data. Moreover, I use other handy tools such as SQL, R and Tableau." )
 
     st.write("I believe any problem can be solved using the following combination: understanding to the fundamentals and using Occam’s Razor.")
