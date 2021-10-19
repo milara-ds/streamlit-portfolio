@@ -15,8 +15,8 @@ def write():
         st.session_state['navigation_changed'] = False
         
     st.title("Fraud Detection")
-    st.markdown("*Uplift modeling for Targeted Marketing using a large dataset of a French advertising company. \
-		      The model duplicated the gains by targeting only 50% of users compared to the baseline.*")
+    st.markdown("*Predictive modeling for Fraud Detection using data of European credit card holders. The model reduced 5 times\
+		          the cost of reimbursing all the fraud transaction. *")
 
     st.write("---")
     
@@ -338,7 +338,7 @@ def write():
 
     st.markdown("## **Conclusion**")
     st.write(f'This quick interactive overview of the job of a Data Scientist presented some of the most important tasks when solving a \
-		         problem of Fraud Detection. The results showed that the models can reduce by {round(max_dummy/max_xgb_tunned,2)} \
+		         problem of Fraud Detection. The results showed one model reduced by {round(max_dummy/max_xgb_tunned,2)} \
 				 times the cost of reimbursing all the transactions.\
 			     Nevertheless, these tasks are similar to any problem with data. Indeed, there are more \
 		         tasks such as cleaning the data and checking that the models are able to make good predictions instead of learning a set of\
