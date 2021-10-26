@@ -16,7 +16,7 @@ def write():
         
     st.title("Fraud Detection")
     st.markdown("*Predictive modeling for Fraud Detection using data of European credit card holders. The model reduced 5 times\
-		          the cost of reimbursing all the fraud transactions. *")
+		          the cost of reimbursing all the fraud transactions.* **[4 min read]**")
 
     st.write("---")
     
@@ -343,4 +343,5 @@ def write():
 			     Nevertheless, these tasks are similar to any problem with data. Indeed, there are more \
 		         tasks such as cleaning the data and checking that the models are able to make good predictions instead of learning a set of\
 		         possible results. For the complete analysis please visit the Jupyter notebook in \
-		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb).')
+		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb). If you have any comments \
+                 or feedback, please reach me out via [LinkedIn](https://www.linkedin.com/in/miguellaradatascientist).')
