@@ -25,8 +25,8 @@ def write():
 				 tool (*assume it is not with Machine Learning*). ")
 
     st.markdown("The following charts aim to show a quick and **[interactive]** overview of the job of a **Data Scientist** does to solve this type of problem. \
-		        The data used in this project contains anonymized credit card transactions labeled as fradulent or genuine. The transactions were made \
-		        in September 2013 by European cardholders. The data was retrieved from two day transactions, where only **492** were fraud out of **284,807**.")
+		        The data used in this project contains anonymized credit card transactions labeled as fraudulent or genuine. The transactions were made \
+		        in September 2013 by European cardholders. The data was retrieved from two-day transactions, where only **492** were fraud out of **284,807**.")
 
 	#1. Plot "Diference between NoneFrauds and Frauds"**************************************
 	#Plot
@@ -57,7 +57,7 @@ def write():
 				the average behavior of the variables for genuine and fraud transactions. The variables V1 to V19 seem to have huge difference. ")
 
     st.markdown("**[Interactive]** Click on the labels that are on the top-right side of the plot, the areas will disappear. If the fraud's area is \
-		        removed it can be seen that the genuine area has a different shape than a circle, the reason is that the range of its values are closer\
+		        removed then the genuine's area changes its shape, the reason is because the range of its values are closer\
 		        to zero than the values of the fraud's area.")
 
 	#Calculate the mean values of the variables for each class
@@ -100,8 +100,8 @@ def write():
 
     st.markdown(" The plot below shows the number of false alarms (*when a person performed an analysis when it was not necessary*) in the horizontal \
 		         axis and the amount of € in the vertical axis. The diagonal is the function for the marginal gain per extra fraud caught. In other words,\
-		        it shows the benefits if it is worth catching a fraud after a number of false alarms. For instance, there is a loss if the model \
-		        correcly finds 1 fraud transaction but generates 62 false alarms.")
+		        it shows the benefits if it is worth catching a fraud after several false alarms. For instance, there is a loss if the model \
+		        correctly finds 1 fraud transaction but generates 62 false alarms.")
 	
     fixed_avcost_fraud = 122.2
 
@@ -291,7 +291,7 @@ def write():
     max_dummy = df_dummy_cost_curve['cum_cost'].iloc[-1]
     max_xgb_tunned = df_xgboost_thrs_cost_curve['cum_cost'].iloc[-1]
 
-    st.write(f'Look at that the Dummy Classifer, it reaches € {max_dummy} when the XGBoost (tunned) only reaches € {max_xgb_tunned}. The reduction from the Dummy \
+    st.write(f'Look at that the Dummy Classifier, it reaches € {max_dummy} when the XGBoost (tunned) only reaches € {max_xgb_tunned}. The reduction from the Dummy \
 		to the XGBoost (tunned) is {round(max_dummy/max_xgb_tunned,2)}. The Dummy classifier does not consider any transaction as fraud, and the other model \
 			is able to detect fraud transactions.')
 

@@ -34,7 +34,7 @@ def write():
 
     st.markdown("### The data and trial procedures")
     st.markdown("The data contains 13 million users from a randomized control trial collected in two weeks, where 84.6% of \
-                 the users where sent two treatments. The data is from a French advertising company that provides online display adverstisements.")
+                 the users were sent two treatments. The data is from a French advertising company that provides online display advertisements.")
     st.markdown("Each instance has 12 features that were anonymized plus two treatment variables (treatment and exposure) and two \
                 target variables (visits and conversion).")
 
@@ -49,7 +49,7 @@ def write():
     #----1st plot [Pie chart with amount of data]---------------------------------------------------------------------
     st.markdown("### Exploratory Data Analysis ")
     st.markdown("The following selection box shows a pie chart with the proportion of population that received and didn't received the treatment.\
-                If you change selection you will see the chart of exposure and conversion.")
+                If you change the selection item, you will see the chart of exposure and conversion.")
     st.markdown("The *exposure* is the second treatment tried by the company and\
                 the *conversion* is the target variable (whether the user bought the product or not). Note that this analysis does not consider the visit variable.")
 
@@ -107,7 +107,7 @@ def write():
     #----2nd plot [Checkbox on conversion]---------------------------------------------------------------------
     st.markdown("### Did the treatments work?")
     st.markdown("The next step is to analyse if one of the treatments (treatment and exposure) did improve the conversion rate. For this\
-                statistical test are carried out. Do not worry I will not show technical computations, but I do show the mean of conversion \
+                statistical tests are carried out. Do not worry I will not show technical computations, but I do show the mean of conversion \
                 given the no treatment, treatment and exposure.")
     st.markdown("Check that the mean of conversion of *treatment* does not improve the mean of conversion \
                 compared to the mean of conversion of *no treatment*. On the other side the *exposure treatment* did improve.\
@@ -140,7 +140,7 @@ def write():
     #----3rd plot [Show data for models?? exposure and conversion??]---------------------------------------------------------------------
     st.markdown("### Data for the models")
     st.markdown("Given the results of above, not all the data is useful for the model. The idea is to only feed the models with the randomized trial \
-        procedure that worked. Thus, the data used for the modeling stage is the population that did and did not received the exposure treatment.")
+        procedure that worked. Thus, the data used for the modeling stage is the population that did and did not receive  the exposure treatment.")
     st.markdown ("The following bar plots shows the conversion of the population that is used for the model.")
 
     fig = make_subplots(rows=1, cols=2,subplot_titles=("Conversion given not exposure", "Conversion given exposure"))
@@ -234,12 +234,12 @@ def write():
     st.markdown("However, the red line, which is a Random model, shows the results of the cumulative uplift given that the population was randomized sorted \
            to receive the treatment. Therefore, the uplift is smaller for almost all the instances processed.")
 
-    st.markdown("Look at the blue highlighed area, the difference between the growth of the curves is huge. Then, the red highlighted area \
+    st.markdown("Look at the blue highlighted area, the difference between the growth of the curves is huge. Then, the red highlighted area \
                 shows the part where both plots are most similar to each other. Finally, the green area shows decrease of the uplift model results." )
     
     st.markdown("In other words, the blue area represent the users with the highest probability of buying the product given they received\
-                the treatment, the red area represents the users that their probability of buying the product does not change  whether they did or did not receive \
-                the treatment. Finally, the green area represents the users that if  receive the treatment can provide negative impact on the business.")
+                the treatment, the red area represents the users that their probability of buying the product does not change whether they did or did not receive \
+                the treatment. Finally, the green area represents the users that if receive the treatment can provide negative impact on the business.")
 
     st.markdown("The model almost duplicated the uplift by targeting only 50% of users compared to the baseline. See where both plots intersect the dot line.")
 
@@ -250,7 +250,7 @@ def write():
     #---5th plot ---profiles------
     st.markdown("### Bonus: How do the three profiles look like?")
     st.markdown("The next radar plot shows the comparison between the median values of each group of profiles. The idea is to highlight the differences between\
-        the profiles encountered.")
+        the profiles found.")
     categories = ['f0','f1','f2','f3','f4','f5','f6','f7','f8','f9','f10','f11']
    
     #Median values
@@ -294,14 +294,14 @@ def write():
 	    )
     st.plotly_chart(fig, use_container_width=True)
 
-    st.markdown("You can try by clicking on the colors of the labels that are on the upper right corner of the plot to enable and disable. \
-                The profile_1 has the highest differences for the f8 and f9 variables. And profile_2 and profile_3 for the f0 and f2 variables respecitvely. ")
+    st.markdown("You can try by clicking on the colors of the labels that are on the upper right corner of the plot to enable and disable the profiles. \
+                The profile_1 has the highest differences for the f8 and f9 variables. And profile_2 and profile_3 for the f0 and f2 variables respectively. ")
 
 
     st.markdown("### Conclusion")
     st.markdown("+ To use this technique it is necessary to perform at least one successful random trail treatment on a group of a population.")
     st.markdown("+ This technique helps you to identify the population that need an incentive to buy product.")
-    st.markdown("+ This techinque helps you avoid spending money on population that might impact your business.")
+    st.markdown("+ This technique helps you avoid spending money on population that might impact your business.")
     st.markdown("+ This technique is based on Causal Machine Learning.")
 
 

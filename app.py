@@ -26,7 +26,7 @@ def main():
 if __name__ == "__main__":
     st.set_page_config(
         page_title="Milara's Portfolio",
-        page_icon=(":computer:"),
+        page_icon=(":briefcase:"),
         layout="centered",
         initial_sidebar_state="auto",
     )
