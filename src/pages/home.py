@@ -24,4 +24,6 @@ def write():
         pattern recognition, statistical analysis, and profit focus for the business case. I love working with Python \
             to find insights and generate actionable information from data. Moreover, I use other handy tools such as SQL, R and Tableau." )
 
-    st.write("I believe any problem can be solved using the following combination: understanding to the fundamentals and using Occam’s Razor.")
+    st.write("I believe any problem can be solved using the following combination: understanding the fundamentals and using Occam’s Razor.")
+
+    st.write("*Please, go to my projects by selecting the option you like on the menu that is on the left side of the screen.*")

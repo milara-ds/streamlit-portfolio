@@ -24,32 +24,36 @@ def write():
     st.write("---")
 
     st.markdown("One of the main applications of Machine Learning is to improve the **Targeted Marketing**.\
-                The Targeted Marketing is used to select customers that most likely will buy a product. One of the latest\
+                Briefly, Targeted Marketing is used to identify customers that most likely will buy a product given they received an incentive. One of the latest\
                 techniques applied to this problem is called **Uplift modeling**.")
 
-    st.markdown("This technique joins Machine Learning to  \
-                boost the results of randomized trial procedures. In other words, it helps to identify customers that will\
-                buy a product given that they received an incentive. **Specifically, the model identifies the customers that\
-                are worth spending money on Targeted Marketing.** The following **interactive** figures show a grasp of how the technique works.")
-
+    st.markdown("This technique uses Machine Learning to  \
+                boost the results of randomized trial procedures. In other words, the results of campaign tests are scaled and improved.  \
+                **Specifically, the technique identifies the customers that\
+                are worth spending money on Targeted Marketing.** The following project with **interactive** figures shows a grasp of how the technique works.")
+    
+    #---0th plot [dataset]
     st.markdown("### The data and trial procedures")
-    st.markdown("The data contains 13 million users from a randomized control trial collected in two weeks, where 84.6% of \
-                 the users were sent two treatments. The data is from a French advertising company that provides online display advertisements.")
+    st.markdown("First things first, we need data. The data used in this project is from a French advertising company that provides online display advertisements.\
+                The data contains 13 million users from a randomized trial procedure collected in two weeks, where 84.6% of \
+                 the users were targeted at least once, and the other 15.4% was prevented from being targeted.")
     st.markdown("Each instance has 12 features that were anonymized plus two treatment variables (treatment and exposure) and two \
-                target variables (visits and conversion).")
+                target variables (visits and conversion). The features are the information available of the customers.")
 
-     #---0th plot [dataset]
     @st.cache
     def read_dataframe():
 	    return pd.read_csv("https://raw.githubusercontent.com/milara-ds/streamlit-portfolio-app/main/data/head_dataframe_uplift.csv") 
     
     df_head = read_dataframe()
     st.dataframe(df_head)
+    st.markdown("**[Note]**This project is focused only on the results of target variable *conversion* which, for the sake of simplicity, it shows if the customer did or did not\
+        purchase the product.")
 
     #----1st plot [Pie chart with amount of data]---------------------------------------------------------------------
     st.markdown("### Exploratory Data Analysis ")
-    st.markdown("The following selection box shows a pie chart with the proportion of population that received and didn't received the treatment.\
-                If you change the selection item, you will see the chart of exposure and conversion.")
+    st.markdown("The next step is to see the data and understand if it is useful for the model. \
+                The following selection box shows a pie chart with the proportion of population that received and didn't receive the treatment.\
+                If you change the selection item, you will see the chart of *exposure* and *conversion*.")
     st.markdown("The *exposure* is the second treatment tried by the company and\
                 the *conversion* is the target variable (whether the user bought the product or not). Note that this analysis does not consider the visit variable.")
 
@@ -106,18 +110,19 @@ def write():
 
     #----2nd plot [Checkbox on conversion]---------------------------------------------------------------------
     st.markdown("### Did the treatments work?")
-    st.markdown("The next step is to analyse if one of the treatments (treatment and exposure) did improve the conversion rate. For this\
-                statistical tests are carried out. Do not worry I will not show technical computations, but I do show the mean of conversion \
-                given the no treatment, treatment and exposure.")
+    st.markdown("Then, to give meaning to the data that is shown above it is necessary to analyse if one of the treatments or both (treatment and exposure) \
+                did improve the conversion rate. \
+                For this, statistical tests are carried out. Do not worry I do not show any technical computations, but I do show the mean of conversion \
+                given the *no treatment*, *treatment*, and *exposure*.")
     st.markdown("Check that the mean of conversion of *treatment* does not improve the mean of conversion \
-                compared to the mean of conversion of *no treatment*. On the other side the *exposure treatment* did improve.\
-                Try by selecting different proportion of data.")
+                compared to the mean of conversion of *no treatment*. On the other side, the *exposure treatment* did improve.\
+                Try by selecting different population.")
     
     agg_data = {'t1e1_mean': 0.053784, 't1e1_sum': 23031 ,'t1e1_count': 428212,
                 't1e0_mean': 0.001194, 't1e0_sum': 13680,'t1e0_count': 11454443,
 	            't0e0_mean': 0.001938, 't0e0_sum': 4063 ,'t0e0_count': 2096937} 
 
-    agg_radio = st.radio("Select the proportion of data to see",('No treatment', 'Treatment', 'Exposure'))
+    agg_radio = st.radio("Select the type of population:",('No treatment', 'Treatment', 'Exposure'))
 
 
     #PRINT aggregate results
@@ -139,8 +144,8 @@ def write():
 
     #----3rd plot [Show data for models?? exposure and conversion??]---------------------------------------------------------------------
     st.markdown("### Data for the models")
-    st.markdown("Given the results of above, not all the data is useful for the model. The idea is to only feed the models with the randomized trial \
-        procedure that worked. Thus, the data used for the modeling stage is the population that did and did not receive  the exposure treatment.")
+    st.markdown("Given the previous results, not all the data is useful for the model. The idea is to only feed the models with the campaign test \
+                that worked. Thus, the data used for the following step (modeling) is the population that did and did not receive  the exposure treatment.")
     st.markdown ("The following bar plots shows the conversion of the population that is used for the model.")
 
     fig = make_subplots(rows=1, cols=2,subplot_titles=("Conversion given not exposure", "Conversion given exposure"))
@@ -173,11 +178,12 @@ def write():
 
     #----- 4th plot Show the uplift modeling-----
     st.markdown("### Modeling")
-    st.markdown("The following plot shows cumulative results of the model on 680,000 instances, where \
-                the x axis represents the amount of instances processed by the models and y axis the cumulative uplift. ")
-    st.markdown("The uplift is nothing more than the difference between the probability of the user to buy the product given that she or he received \
-                the treatment minus the probability of the same user given that she or he did not received the treatment. The higher the uplift the better.")
+    st.markdown("This is where the magic happens. The selected data is used to train and evaluate the uplift model.")
+    st.markdown("The uplift model is nothing more than the difference between the probability of the user to buy the product given that she or he received \
+                the treatment minus the probability of the same user given that she or he did not receive the treatment. The higher the uplift the better.")
     st.markdown("This is also known as **Causal Machine Learning**.")
+    st.markdown("The following plot shows the cumulative results of two models on 680,000 test instances, where \
+                the x axis represents the number of instances processed by the models and y axis the cumulative uplift. ")
 
     @st.cache
     def read_uplift_results():
@@ -228,28 +234,35 @@ def write():
 
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("The plot of above shows two lines. The blue line presents the cumulative results of the uplift model. In short, the uplift model was used to sort the \
-        population based on their probability of buying the product given that they received the treatment. The first users are the ones with the highest probability\
-             and the last ones with the lowest.")
+                 population based on their probability of buying the product given that they received the treatment. The first users are the ones with the highest probability\
+                 and the last ones with the lowest.")
     
-    st.markdown("However, the red line, which is a Random model, shows the results of the cumulative uplift given that the population was randomized sorted \
-           to receive the treatment. Therefore, the uplift is smaller for almost all the instances processed.")
+    st.markdown("And the red line shows the baseline model. \
+                 Which presents the cumulative uplift given that the users were randomly sorted (no Machine Learning used). \
+                 Therefore, the uplift is smaller than the uplift model.")
 
-    st.markdown("Look at the blue highlighted area, the difference between the growth of the curves is huge. Then, the red highlighted area \
-                shows the part where both plots are most similar to each other. Finally, the green area shows decrease of the uplift model results." )
+    st.markdown("Look at the blue highlighted area, the difference between the growth of the curves is huge. Also, the red highlighted area \
+                shows the part where both plots are most similar to each other. Finally, the green area shows decrease of the uplift model." )
     
-    st.markdown("In other words, the blue area represent the users with the highest probability of buying the product given they received\
+    st.markdown("In other words, the blue area represents the users with the highest probability of buying the product given they received\
                 the treatment, the red area represents the users that their probability of buying the product does not change whether they did or did not receive \
-                the treatment. Finally, the green area represents the users that if receive the treatment can provide negative impact on the business.")
+                the treatment. Finally, the green area represents the users that if receive the treatment can provide negative impact on the business.\
+                This only applies for the uplift model.")
 
-    st.markdown("The model almost duplicated the uplift by targeting only 50% of users compared to the baseline. See where both plots intersect the dot line.")
+    st.markdown("Moreover, the uplift model almost duplicated the uplift by targeting only 50% of users compared to the baseline. See where both plots intersect \
+                the dashed line.")
 
+    st.markdown("**[Key points]**")
     st.markdown("**[Key 1]** The uplift model helps to identify the most persuadable population.")
-    st.markdown("**[Key 2]** The uplift model helps to avoid spending on treatments for population that will not change their behavior.")
+    st.markdown("**[Key 2]** The uplift model helps to avoid spending on population that will not change their behavior whether they receive \
+                or not the incentive.")
     st.markdown("**[Key 3]** The uplift model helps to avoid population that if receive the treatment can provide negative impact on the business.")
+
+    st.markdown("Hence, Uplift modeling provides several benefits for Targeted Marketing.")
 
     #---5th plot ---profiles------
     st.markdown("### Bonus: How do the three profiles look like?")
-    st.markdown("The next radar plot shows the comparison between the median values of each group of profiles. The idea is to highlight the differences between\
+    st.markdown("The next radar plot shows the comparison between the median values of the features for each group of profiles. The idea is to highlight the differences between\
         the profiles found.")
     categories = ['f0','f1','f2','f3','f4','f5','f6','f7','f8','f9','f10','f11']
    
@@ -268,21 +281,21 @@ def write():
             r= profile_1,
             theta=categories,
             fill='toself',
-            name='Profile_1\'s area'
+            name='Profile 1\'s area'
     ))
 
     fig.add_trace(go.Scatterpolar(
             r= profile_2,
             theta=categories,
             fill='toself',
-            name='Profile_2\'s area'
+            name='Profile 2\'s area'
     ))
 
     fig.add_trace(go.Scatterpolar(
             r= profile_3,
             theta=categories,
             fill='toself',
-            name='Profile_3\'s area'
+            name='Profile 3\'s area'
     ))
 
 
@@ -295,11 +308,13 @@ def write():
     st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("You can try by clicking on the colors of the labels that are on the upper right corner of the plot to enable and disable the profiles. \
-                The profile_1 has the highest differences for the f8 and f9 variables. And profile_2 and profile_3 for the f0 and f2 variables respectively. ")
+                The profile 1 has the highest differences for the f8 and f9 variables. And profile 2 and profile 3 for the f0 and f2 variables respectively. ")
 
 
     st.markdown("### Conclusion")
-    st.markdown("+ To use this technique it is necessary to perform at least one successful random trail treatment on a group of a population.")
+    st.markdown("In this brief explanation, it was shown how Targeted Marketing is improved with Uplift modeling. Further, the key steps from understanding \
+        the data to the modeling were presented. In addition, a bonus was shown. Finally, the takeaways of this project are listed below: ")
+    st.markdown("+ To use this technique, it is necessary to perform at least one successful random trail treatment on a group of a population.")
     st.markdown("+ This technique helps you to identify the population that need an incentive to buy product.")
     st.markdown("+ This technique helps you avoid spending money on population that might impact your business.")
     st.markdown("+ This technique is based on Causal Machine Learning.")
