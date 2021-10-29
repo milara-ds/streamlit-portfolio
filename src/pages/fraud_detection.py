@@ -343,5 +343,6 @@ def write():
 			     Nevertheless, these tasks are similar to any problem with data. Indeed, there are more \
 		         tasks such as cleaning the data and checking that the models are able to make good predictions instead of learning a set of\
 		         possible results. For the complete analysis please visit the Jupyter notebook in \
-		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb). If you have any comments \
-                 or feedback, please reach me out via [LinkedIn](https://www.linkedin.com/in/miguellaradatascientist).')
+		         my [github](https://github.com/milara-ds/fraud-detection/blob/main/Fraud%20Detection_v1.ipynb). If you have any comments, \
+                 please answer this quick [survey](https://docs.google.com/forms/d/e/1FAIpQLSdLJ1mf5nWuEVU2WoQb5GrM_Clza5CBokASR6aqZaeR9IbbRg/viewform)\
+				 or reach me out via [LinkedIn](https://www.linkedin.com/in/miguellaradatascientist).')

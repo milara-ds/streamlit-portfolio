@@ -320,6 +320,7 @@ def write():
     st.markdown("+ This technique is based on Causal Machine Learning.")
 
 
-    st.write("For the complete analysis click [here](https://github.com/milara-ds/targeted-marketing/blob/main/Uplift_v1.ipynb). If you have any comments \
-        or feedback, please reach me out via [LinkedIn](https://www.linkedin.com/in/miguellaradatascientist).")
+    st.write("For the complete analysis click [here](https://github.com/milara-ds/targeted-marketing/blob/main/Uplift_v1.ipynb). If you have any comments, \
+        please answer this quick [survey](https://docs.google.com/forms/d/e/1FAIpQLSdLJ1mf5nWuEVU2WoQb5GrM_Clza5CBokASR6aqZaeR9IbbRg/viewform) or \
+        reach me out via [LinkedIn](https://www.linkedin.com/in/miguellaradatascientist).")
  
